@@ -104,7 +104,7 @@ export default function App() {
           style={{ display: 'block', justifyContent: 'space-around' }}
           list={blocks}
           delay={2}
-          sort={false}
+          sort={true}
           setList={setBlocks}
           group={{
             name: 's',
