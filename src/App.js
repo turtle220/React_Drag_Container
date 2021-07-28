@@ -28,50 +28,75 @@ export default function App() {
   const [blocks, setBlocks] = useState([
     {
       id: 1,
-      content: 'item 1',
-      parent_id: null,
+      content: 'container 1',
       type: 'container',
-      children: [
-        {
-          id: 2,
-          content: 'item 2',
-          width: 3,
-          type: 'text',
-          parent_id: 1
-        },
-        {
-          id: 3,
-          content: 'item 3',
-          width: 3,
-          type: 'text',
-          parent_id: 1
+      children: [{
+          content: 'item 1',
+          width: 2
         }
       ]
     },
     {
-      id: 4,
-      content: 'item 2',
-      parent_id: null,
+      id: 2,
+      content: 'container 2',
       type: 'container',
+      children: [{
+          content: 'item 2',
+          width: 2
+        }
+      ]
+    },
+    {
+      id: 3,
+      content: 'container 3',
+      type: 'container',
+      children: [{
+          content: 'item 3',
+          width: 2
+        }
+      ]
+    }
+  ])
+  const [items, setItems] = useState([
+    {
+      id: 4,
+      content: 'item 4',
+      type: 'Item',
       children: [
+        {
+          id: 5,
+          content: 'item 5',
+          width: 2,
+          type: 'text',
+        },
         {
           id: 6,
           content: 'item 6',
           width: 2,
           type: 'text',
-          parent_id: 2
-        },
+        }
+      ]
+    },
+    {
+      id: 7,
+      content: 'item 7',
+      type: 'Item',
+      children: [
         {
           id: 7,
           content: 'item 7',
           width: 2,
           type: 'text',
-          parent_id: 2
+        },
+        {
+          id: 8,
+          content: 'item 8',
+          width: 2,
+          type: 'text',
         }
       ]
     }
   ])
-
   return (
     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
       <div className='Card-1'>
@@ -87,19 +112,21 @@ export default function App() {
             put: false
           }}
           {...sortableOptions}>
-          <BlockWrapper
-            key={blocks[0].id}
-            block={blocks[0]}
-            blockIndex={0}
-            setBlocks={setBlocks}
-          />
+          {blocks.map((block, index) => (
+            <BlockWrapper
+              key={block.id}
+              block={block}
+              blockIndex={[index]}
+              setBlocks={setBlocks}
+            />
+          ))}
         </ReactSortable>
       </div>
       <div className='Card-2'>
         <ReactSortable
           style={{ display: 'block', justifyContent: 'space-around' }}
-          list={blocks}
-          setList={setBlocks}
+          list={items}
+          setList={setItems}
           animation={300}
           delay={0}
           group={{
@@ -107,41 +134,43 @@ export default function App() {
             pull: true,
             put: false
           }}>
-          <ReactSortable
-            group={{
-              name: 's',
-              pull: true,
-              put: false
-            }}
-            key={blocks[1].id}
-            list={blocks[1].children}
-            setList={(currentList) => {
-              setBlocks((sourceList) => {
-                const tempList = [...sourceList]
-                const _blockIndex = [1]
-                const lastIndex = _blockIndex.pop()
-                const lastArr = _blockIndex.reduce(
-                  (arr, i) => arr[i]['children'],
-                  tempList
-                )
-                console.log(lastIndex)
-                lastArr[lastIndex]['children'] = currentList
-                return tempList
-              })
-            }}
-            {...sortableOptions}>
-            {blocks[1].children &&
-              blocks[1].children.map((childBlock, index) => {
-                return (
-                  <BlockWrapper
-                    key={childBlock.id}
-                    block={childBlock}
-                    blockIndex={[index]}
-                    setBlocks={setBlocks}
-                  />
-                )
-              })}
-          </ReactSortable>
+          {items.map((item, index) => (
+            <ReactSortable
+              group={{
+                name: 's',
+                pull: true,
+                put: false
+              }}
+              key={item.id}
+              list={item.children}
+              setList={(currentList) => {
+                setItems((sourceList) => {
+                  const tempList = [...sourceList]
+                  const _blockIndex = [index]
+                  const lastIndex = _blockIndex.pop()
+                  const lastArr = _blockIndex.reduce(
+                    (arr, i) => arr[i]['children'],
+                    tempList
+                  )
+                  console.log(lastIndex)
+                  lastArr[lastIndex]['children'] = currentList
+                  return tempList
+                })
+              }}
+              {...sortableOptions}>
+              {item.children &&
+                item.children.map((childBlock, index) => {
+                  return (
+                    <BlockWrapper
+                      key={childBlock.id}
+                      block={childBlock}
+                      blockIndex={[index]}
+                      setBlocks={setBlocks}
+                    />
+                  )
+                })}
+            </ReactSortable>
+          ))}
         </ReactSortable>
       </div>
     </div>
