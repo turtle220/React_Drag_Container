@@ -10,80 +10,11 @@ const sortableOptions = {
   ghostClass: 'ghost'
 }
 
-export default function DragDrop({props}) {
-  console.log(props, 'You can check the props value here so you can use it')
-  const [blocks, setBlocks] = useState([
-    {
-      id: 1,
-      content: 'container 1',
-      type: 'container',
-      children: [{
-          content: 'item 1',
-          width: 2
-        }
-      ]
-    },
-    {
-      id: 2,
-      content: 'container 2',
-      type: 'container',
-      children: [{
-          content: 'item 2',
-          width: 2
-        }
-      ]
-    },
-    {
-      id: 3,
-      content: 'container 3',
-      type: 'container',
-      children: [{
-          content: 'item 3',
-          width: 2
-        }
-      ]
-    }
-  ])
-  const [items, setItems] = useState([
-    {
-      id: 4,
-      content: 'item 4',
-      type: 'Item',
-      children: [
-        {
-          id: 5,
-          content: 'item 5',
-          width: 2,
-          type: 'text',
-        },
-        {
-          id: 6,
-          content: 'item 6',
-          width: 2,
-          type: 'text',
-        }
-      ]
-    },
-    {
-      id: 7,
-      content: 'item 7',
-      type: 'Item',
-      children: [
-        {
-          id: 7,
-          content: 'item 7',
-          width: 2,
-          type: 'text',
-        },
-        {
-          id: 8,
-          content: 'item 8',
-          width: 2,
-          type: 'text',
-        }
-      ]
-    }
-  ])
+export default function DragDrop({containersArray, itemsArray}) {
+  console.log(containersArray, itemsArray, 'You can check the props value here so you can use it')
+
+  const [blocks, setBlocks] = useState(containersArray)
+  const [items, setItems] = useState(itemsArray)
   return (
     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
       <div className='Card-1'>
@@ -98,15 +29,19 @@ export default function DragDrop({props}) {
             pull: false,
             put: false
           }}
+          
           {...sortableOptions}>
-          {blocks.map((block, index) => (
-            <BlockWrapper
-              key={block.id}
-              block={block}
-              blockIndex={[index]}
-              setBlocks={setBlocks}
-            />
-          ))}
+          {blocks.map((block, index) => {
+            return (
+              <BlockWrapper
+                key={block.id}
+                block={block}
+                blockIndex={[index]}
+                setBlocks={setBlocks}
+              />
+            )
+          }
+          )}
         </ReactSortable>
       </div>
       <div className='Card-2'>
