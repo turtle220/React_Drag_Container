@@ -132,14 +132,14 @@ export default function App() {
           group={{
             name: 's',
             pull: true,
-            put: false
+            put: true
           }}>
           {items.map((item, index) => (
             <ReactSortable
               group={{
                 name: 's',
                 pull: true,
-                put: false
+                put: true
               }}
               key={item.id}
               list={item.children}
