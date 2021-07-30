@@ -18,19 +18,20 @@ export default function DragDrop({
 }) {
   const [blocks, setBlocks] = useState(containersArray)
   const [items, setItems] = useState(itemsArray)
+
   useEffect(()=>{
     onChange(blocks, items)
   }, [blocks])
+  
   return (
     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
       <div style={renderCardStyle}>
         <ReactSortable
           style={renderContainerStyle}
           list={blocks}
-          // delay={2}
+          delay={2}
           sort={true}
           setList={setBlocks}
-          // onChange={()=>{console.log('hererere-------')}}
           group={{
             name: 's',
             pull: false,
