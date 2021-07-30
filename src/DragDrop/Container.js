@@ -29,7 +29,7 @@ export default function Container({ block, blockIndex, setBlocks }) {
             (arr, i) => arr[i]['children'],
             tempList
           )
-          console.log(lastIndex)
+          // console.log(lastIndex)
           lastArr[lastIndex]['children'] = currentList
           return tempList
         })

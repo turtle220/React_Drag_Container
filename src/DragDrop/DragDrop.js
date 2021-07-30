@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ReactSortable } from 'react-sortablejs'
 import BlockWrapper from './BlockWrapper'
 import './index.css'
@@ -10,26 +10,30 @@ const sortableOptions = {
   ghostClass: 'ghost'
 }
 
-export default function DragDrop({containersArray, itemsArray}) {
-  console.log(containersArray, itemsArray, 'You can check the props value here so you can use it')
-
+export default function DragDrop({
+  containersArray,
+  itemsArray,
+  renderCardSecondList,
+  renderCardFirstList,
+  onChange
+}) {
   const [blocks, setBlocks] = useState(containersArray)
   const [items, setItems] = useState(itemsArray)
   return (
     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
       <div className='Card-1'>
         <ReactSortable
-          style={{ display: 'block', justifyContent: 'space-around' }}
+          style={{ renderCardSecondList }}
           list={blocks}
           delay={2}
           sort={true}
           setList={setBlocks}
+          onChange={onChange(blocks, items)}
           group={{
             name: 's',
             pull: false,
             put: false
           }}
-          
           {...sortableOptions}>
           {blocks.map((block, index) => {
             return (
@@ -40,8 +44,7 @@ export default function DragDrop({containersArray, itemsArray}) {
                 setBlocks={setBlocks}
               />
             )
-          }
-          )}
+          })}
         </ReactSortable>
       </div>
       <div className='Card-2'>
@@ -51,6 +54,7 @@ export default function DragDrop({containersArray, itemsArray}) {
           setList={setItems}
           animation={300}
           delay={0}
+          onChange={onChange(blocks, items)}
           group={{
             name: 's',
             pull: true,
@@ -74,7 +78,7 @@ export default function DragDrop({containersArray, itemsArray}) {
                     (arr, i) => arr[i]['children'],
                     tempList
                   )
-                  console.log(lastIndex)
+                  // console.log(lastIndex)
                   lastArr[lastIndex]['children'] = currentList
                   return tempList
                 })
