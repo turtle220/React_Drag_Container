@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 import Container from './Container'
-import './index.css'
 
 const StyledBlockWrapper = styled.div`
   position: relative;
@@ -21,7 +20,7 @@ export default function BlockWrapper({ block, blockIndex, setBlocks }) {
   if (!block) return null
   if (block.type === 'container') {
     return (
-      <StyledBlockWrapper className='block'>
+      <StyledBlockWrapper >
         container: {block.content}
         <Container
           block={block}
@@ -32,7 +31,7 @@ export default function BlockWrapper({ block, blockIndex, setBlocks }) {
     )
   } else {
     return (
-      <StyledBlockWrapper className='block'>
+      <StyledBlockWrapper >
         text: {block.content}
       </StyledBlockWrapper>
     )

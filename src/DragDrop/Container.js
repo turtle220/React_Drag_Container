@@ -1,7 +1,6 @@
 import React from 'react'
 import { ReactSortable } from 'react-sortablejs'
 import BlockWrapper from './BlockWrapper'
-import './index.css'
 
 const sortableOptions = {
   animation: 150,
@@ -29,7 +28,6 @@ export default function Container({ block, blockIndex, setBlocks }) {
             (arr, i) => arr[i]['children'],
             tempList
           )
-          // console.log(lastIndex)
           lastArr[lastIndex]['children'] = currentList
           return tempList
         })

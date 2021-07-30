@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { ReactSortable } from 'react-sortablejs'
 import BlockWrapper from './BlockWrapper'
-import './index.css'
 
 const sortableOptions = {
   animation: 150,
@@ -13,22 +12,25 @@ const sortableOptions = {
 export default function DragDrop({
   containersArray,
   itemsArray,
-  renderCardSecondList,
-  renderCardFirstList,
+  renderCardStyle,
+  renderContainerStyle,
   onChange
 }) {
   const [blocks, setBlocks] = useState(containersArray)
   const [items, setItems] = useState(itemsArray)
+  useEffect(()=>{
+    onChange(blocks, items)
+  }, [blocks])
   return (
     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-      <div className='Card-1'>
+      <div style={renderCardStyle}>
         <ReactSortable
-          style={{ renderCardSecondList }}
+          style={renderContainerStyle}
           list={blocks}
-          delay={2}
+          // delay={2}
           sort={true}
           setList={setBlocks}
-          onChange={onChange(blocks, items)}
+          // onChange={()=>{console.log('hererere-------')}}
           group={{
             name: 's',
             pull: false,
@@ -47,14 +49,13 @@ export default function DragDrop({
           })}
         </ReactSortable>
       </div>
-      <div className='Card-2'>
+      <div style={renderCardStyle}>
         <ReactSortable
-          style={{ display: 'block', justifyContent: 'space-around' }}
+          style={renderContainerStyle}
           list={items}
           setList={setItems}
           animation={300}
           delay={0}
-          onChange={onChange(blocks, items)}
           group={{
             name: 's',
             pull: true,
@@ -62,6 +63,7 @@ export default function DragDrop({
           }}>
           {items.map((item, index) => (
             <ReactSortable
+              style={renderContainerStyle}
               group={{
                 name: 's',
                 pull: true,
@@ -78,7 +80,6 @@ export default function DragDrop({
                     (arr, i) => arr[i]['children'],
                     tempList
                   )
-                  // console.log(lastIndex)
                   lastArr[lastIndex]['children'] = currentList
                   return tempList
                 })
@@ -91,7 +92,7 @@ export default function DragDrop({
                       key={childBlock.id}
                       block={childBlock}
                       blockIndex={[index]}
-                      setBlocks={setBlocks}
+                      setBlocks={setItems}
                     />
                   )
                 })}

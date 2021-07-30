@@ -2,6 +2,7 @@ import React from 'react'
 import DragDrop from './DragDrop/DragDrop'
 
 export default function App() {
+  //Props Data Start
   const containersArray = [
     {
       id: 1,
@@ -38,49 +39,63 @@ export default function App() {
     }
   ]
   const itemsArray = [
+    
     {
-      id: 4,
-      content: 'item 4',
+      id: 1,
       type: 'Item',
       children: [
         {
-          id: 5,
-          content: 'item 5',
+          id: 4,
+          content: 'item 4',
           width: 2,
           type: 'text'
         },
         {
-          id: 6,
-          content: 'item 6',
+          id: 5,
+          content: 'item 5',
           width: 2,
           type: 'text'
         }
       ]
     },
     {
-      id: 7,
-      content: 'item 7',
+      id: 2,
       type: 'Item',
       children: [
         {
-          id: 7,
-          content: 'item 7',
+          id: 6,
+          content: 'item 6',
           width: 2,
           type: 'text'
         },
         {
-          id: 8,
-          content: 'item 8',
+          id:7,
+          content: 'item 7',
           width: 2,
           type: 'text'
         }
       ]
     }
   ]
-  const renderCardSecondList = [
-    { display: 'block', justifyContent: 'space-around' }
-  ]
-  const renderCardFirstList = []
+
+  const renderCardStyle = {
+    justifyContent: 'space-around',
+    backgroundColor: '#ebecf0',
+    borderRadius: '3px',
+    boxSizing: 'border-box',
+    display: 'flex',
+    flexDirection: 'column',
+    maxHeight: '100%',
+    position: 'relative',
+    whiteSpace: 'normal',
+    width: '48%',
+    padding: '3%',
+  }
+  const renderContainerStyle = {
+    display: 'block', 
+    justifyContent: 'space-around'
+  }
+
   const onChange = (containArr, itemArr) => {
     console.log(
       '*** You can see the updated containArr and item Arry when change the Drop event',
@@ -88,13 +103,15 @@ export default function App() {
       itemArr
     )
   }
+  //Props Data End
+
   return (
     <div>
       <DragDrop
         containersArray={containersArray}
         itemsArray={itemsArray}
-        renderCardSecondList={renderCardSecondList}
-        renderCardFirstList={renderCardFirstList}
+        renderCardStyle={renderCardStyle}
+        renderContainerStyle={renderContainerStyle}
         onChange={onChange}
       />
     </div>
