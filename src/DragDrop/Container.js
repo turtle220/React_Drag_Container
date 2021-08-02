@@ -37,7 +37,7 @@ export default function Container({ block, blockIndex, setBlocks }) {
         block.children.map((childBlock, index) => {
           return (
             <BlockWrapper
-              key={childBlock.id}
+              key={index}
               block={childBlock}
               blockIndex={[index]}
               setBlocks={setBlocks}
