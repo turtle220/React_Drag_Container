@@ -9,7 +9,7 @@ const sortableOptions = {
   ghostClass: 'ghost'
 }
 
-export default function Container({ block, blockIndex, setBlocks }) {
+export default function Container({ block, blockIndex, setBlocks, renderBlockWrapperStyle }) {
   return (
     <ReactSortable
       group={{
@@ -33,10 +33,11 @@ export default function Container({ block, blockIndex, setBlocks }) {
         })
       }}
       {...sortableOptions}>
-      {block.children &&
+      { block.children &&
         block.children.map((childBlock, index) => {
           return (
             <BlockWrapper
+              renderBlockWrapperStyle={renderBlockWrapperStyle}
               key={index}
               block={childBlock}
               blockIndex={[index]}

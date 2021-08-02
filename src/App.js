@@ -39,7 +39,6 @@ export default function App() {
     }
   ]
   const itemsArray = [
-    
     {
       id: 1,
       type: 'Item',
@@ -77,6 +76,15 @@ export default function App() {
       ]
     }
   ]
+  const renderBlockWrapperStyle = {
+    position: 'relative',
+    background: 'white',
+    padding: '20px',
+    marginBottom: '10px',
+    border: '1px solid lightgray',
+    borderRadius: '4px',
+    cursor: 'move'
+  }
 
   const renderCardStyle = {
     justifyContent: 'space-around',
@@ -95,7 +103,7 @@ export default function App() {
     display: 'block', 
     justifyContent: 'space-around'
   }
-
+  
   const onChange = (containArr, itemArr) => {
     console.log(
       '*** You can see the updated containArr and item Arry when change the Drop event',
@@ -112,6 +120,7 @@ export default function App() {
         itemsArray={itemsArray}
         renderCardStyle={renderCardStyle}
         renderContainerStyle={renderContainerStyle}
+        renderBlockWrapperStyle={renderBlockWrapperStyle}
         onChange={onChange}
       />
     </div>

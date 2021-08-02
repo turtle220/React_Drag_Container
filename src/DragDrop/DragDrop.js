@@ -3,7 +3,6 @@ import { ReactSortable } from 'react-sortablejs'
 import BlockWrapper from './BlockWrapper'
 
 const sortableOptions = {
-  animation: 150,
   fallbackOnBody: true,
   swapThreshold: 0.65,
   ghostClass: 'ghost'
@@ -14,6 +13,7 @@ export default function DragDrop({
   itemsArray,
   renderCardStyle,
   renderContainerStyle,
+  renderBlockWrapperStyle,
   onChange
 }) {
   const [blocks, setBlocks] = useState(containersArray)
@@ -22,7 +22,7 @@ export default function DragDrop({
   useEffect(()=>{
     onChange(blocks, items)
   }, [blocks])
-
+  
   return (
     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
       <div style={renderCardStyle}>
@@ -41,6 +41,7 @@ export default function DragDrop({
           {blocks.map((block, index) => {
             return (
               <BlockWrapper
+                renderBlockWrapperStyle={renderBlockWrapperStyle}
                 key={block.id}
                 block={block}
                 blockIndex={[index]}
@@ -52,11 +53,10 @@ export default function DragDrop({
       </div>
       <div style={renderCardStyle}>
         <ReactSortable
+          delay={2}
           style={renderContainerStyle}
           list={items}
-          setList={setItems}
-          animation={300}
-          delay={2}
+          setList={()=>setItems}
           group={{
             name: 's',
             pull: true,
@@ -86,10 +86,11 @@ export default function DragDrop({
                 })
               }}
               {...sortableOptions}>
-              {item.children && item.id && item.children.length > 0 &&
+              {(item.children && item.id && item.children.length > 0) &&
                 item.children.map((childBlock, index) => {
                   return (
                     <BlockWrapper
+                      renderBlockWrapperStyle={renderBlockWrapperStyle}
                       key={index}
                       block={childBlock}
                       blockIndex={[index]}

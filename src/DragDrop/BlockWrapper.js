@@ -1,39 +1,25 @@
 import React from 'react'
-import styled from 'styled-components'
 import Container from './Container'
 
-const StyledBlockWrapper = styled.div`
-  position: relative;
-  background: white;
-  padding: 20px;
-  margin-bottom: 10px;
-  border: 1px solid lightgray;
-  border-radius: 4px;
-  cursor: move;
-  display:
-  &:hover {
-    //background: #eeeeee;
-  }
-`
-
-export default function BlockWrapper({ block, blockIndex, setBlocks }) {
+export default function BlockWrapper({ block, blockIndex, setBlocks, renderBlockWrapperStyle }) {
   if (!block) return null
   if (block.type === 'container') {
     return (
-      <StyledBlockWrapper >
+      <div style={renderBlockWrapperStyle}>
         container: {block.content}
         <Container
+          renderBlockWrapperStyle={renderBlockWrapperStyle}
           block={block}
           setBlocks={setBlocks}
           blockIndex={blockIndex}
         />
-      </StyledBlockWrapper>
+      </div>
     )
   } else {
     return (
-      <StyledBlockWrapper >
+      <div style={renderBlockWrapperStyle}>
         text: {block.content}
-      </StyledBlockWrapper>
+      </div>
     )
   }
 }
