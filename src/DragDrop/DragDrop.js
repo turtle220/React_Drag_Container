@@ -22,7 +22,7 @@ export default function DragDrop({
   useEffect(()=>{
     onChange(blocks, items)
   }, [blocks])
-  
+
   return (
     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
       <div style={renderCardStyle}>
@@ -56,21 +56,21 @@ export default function DragDrop({
           list={items}
           setList={setItems}
           animation={300}
-          delay={0}
+          delay={2}
           group={{
             name: 's',
             pull: true,
             put: true
           }}>
-          {items.map((item, index) => (
+          {items && items.map((item, index) => (
             <ReactSortable
+              key={index}
               style={renderContainerStyle}
               group={{
                 name: 's',
                 pull: true,
                 put: true
               }}
-              key={item.id}
               list={item.children}
               setList={(currentList) => {
                 setItems((sourceList) => {
@@ -86,11 +86,11 @@ export default function DragDrop({
                 })
               }}
               {...sortableOptions}>
-              {item.children &&
+              {item.children && item.id && item.children.length > 0 &&
                 item.children.map((childBlock, index) => {
                   return (
                     <BlockWrapper
-                      key={childBlock.id}
+                      key={index}
                       block={childBlock}
                       blockIndex={[index]}
                       setBlocks={setItems}
