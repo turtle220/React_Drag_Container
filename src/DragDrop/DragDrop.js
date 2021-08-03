@@ -3,6 +3,7 @@ import { ReactSortable } from 'react-sortablejs'
 import BlockWrapper from './BlockWrapper'
 
 const sortableOptions = {
+  animation: 150,
   fallbackOnBody: true,
   swapThreshold: 0.65,
   ghostClass: 'ghost'
@@ -11,7 +12,8 @@ const sortableOptions = {
 export default function DragDrop({
   containersArray,
   itemsArray,
-  renderCardStyle,
+  renderCardStyle1,
+  renderCardStyle2,
   renderContainerStyle,
   renderBlockWrapperStyle,
   onChange
@@ -25,7 +27,7 @@ export default function DragDrop({
   
   return (
     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-      <div style={renderCardStyle}>
+      <div style={renderCardStyle1}>
         <ReactSortable
           style={renderContainerStyle}
           list={blocks}
@@ -51,56 +53,48 @@ export default function DragDrop({
           })}
         </ReactSortable>
       </div>
-      <div style={renderCardStyle}>
-        <ReactSortable
-          delay={2}
-          style={renderContainerStyle}
-          list={items}
-          setList={()=>setItems}
-          group={{
-            name: 's',
-            pull: true,
-            put: true
-          }}>
-          {items && items.map((item, index) => (
-            <ReactSortable
-              key={index}
-              style={renderContainerStyle}
-              group={{
-                name: 's',
-                pull: true,
-                put: true
-              }}
-              list={item.children}
-              setList={(currentList) => {
-                setItems((sourceList) => {
-                  const tempList = [...sourceList]
-                  const _blockIndex = [index]
-                  const lastIndex = _blockIndex.pop()
-                  const lastArr = _blockIndex.reduce(
-                    (arr, i) => arr[i]['children'],
-                    tempList
-                  )
-                  lastArr[lastIndex]['children'] = currentList
-                  return tempList
-                })
-              }}
-              {...sortableOptions}>
-              {(item.children && item.id && item.children.length > 0) &&
-                item.children.map((childBlock, index) => {
-                  return (
-                    <BlockWrapper
-                      renderBlockWrapperStyle={renderBlockWrapperStyle}
-                      key={index}
-                      block={childBlock}
-                      blockIndex={[index]}
-                      setBlocks={setItems}
-                    />
-                  )
-                })}
-            </ReactSortable>
-          ))}
-        </ReactSortable>
+      <div style={renderCardStyle2}>
+     
+        {items && items.map((item, index) => (
+          <ReactSortable
+            key={index}
+            style={renderContainerStyle}
+            group={{
+              name: 's',
+              pull: true,
+              put: true
+            }}
+            sort={true}
+            list={item.children}
+            setList={(currentList) => {
+              setItems((sourceList) => {
+                const tempList = [...sourceList]
+                const _blockIndex = [index]
+                const lastIndex = _blockIndex.pop()
+                const lastArr = _blockIndex.reduce(
+                  (arr, i) => arr[i]['children'],
+                  tempList
+                )
+                lastArr[lastIndex]['children'] = currentList
+                return tempList
+              })
+            }}
+            {...sortableOptions}>
+            {(item.children && item.id && item.children.length > 0) &&
+              item.children.map((childBlock, index) => {
+                return (
+                  <BlockWrapper
+                    renderBlockWrapperStyle={renderBlockWrapperStyle}
+                    key={index}
+                    block={childBlock}
+                    blockIndex={[index]}
+                    setBlocks={setItems}
+                  />
+                )
+              })}
+          </ReactSortable>
+        ))}
+       
       </div>
     </div>
   )

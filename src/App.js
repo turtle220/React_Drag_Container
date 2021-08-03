@@ -86,7 +86,7 @@ export default function App() {
     cursor: 'move'
   }
 
-  const renderCardStyle = {
+  const renderCardStyle1 = {
     justifyContent: 'space-around',
     backgroundColor: '#ebecf0',
     borderRadius: '3px',
@@ -98,6 +98,18 @@ export default function App() {
     whiteSpace: 'normal',
     width: '48%',
     padding: '3%',
+  }
+  const renderCardStyle2 = {
+    backgroundColor: '#ebecf0',
+    borderRadius: '3px',
+    boxSizing: 'border-box',
+    display: 'flex',
+    flexDirection: 'column',
+    maxHeight: '100%',
+    position: 'relative',
+    whiteSpace: 'normal',
+    width: '48%',
+    padding: '4%',
   }
   const renderContainerStyle = {
     display: 'block', 
@@ -118,7 +130,8 @@ export default function App() {
       <DragDrop
         containersArray={containersArray}
         itemsArray={itemsArray}
-        renderCardStyle={renderCardStyle}
+        renderCardStyle1={renderCardStyle1}
+        renderCardStyle2={renderCardStyle2}
         renderContainerStyle={renderContainerStyle}
         renderBlockWrapperStyle={renderBlockWrapperStyle}
         onChange={onChange}
