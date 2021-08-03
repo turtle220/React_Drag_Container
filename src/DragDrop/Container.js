@@ -9,7 +9,10 @@ const sortableOptions = {
   ghostClass: 'ghost'
 }
 
-export default function Container({ block, blockIndex, setBlocks, renderBlockWrapperStyle }) {
+export default function Container({ block, blockIndex, setBlocks, renderBlockWrapperStyle, onBlockWrapper }) {
+  const handleBlockEnd = () => {
+    onBlockWrapper()
+  }
   return (
     <ReactSortable
       group={{
@@ -19,6 +22,7 @@ export default function Container({ block, blockIndex, setBlocks, renderBlockWra
       }}
       key={block.id}
       list={block.children}
+      onEnd={handleBlockEnd}
       setList={(currentList) => {
         setBlocks((sourceList) => {
           const tempList = [...sourceList]
