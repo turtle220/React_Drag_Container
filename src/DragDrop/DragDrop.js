@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { ReactSortable } from 'react-sortablejs'
 import BlockWrapper from './BlockWrapper'
 
